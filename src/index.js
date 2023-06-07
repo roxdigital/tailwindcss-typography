@@ -69,7 +69,7 @@ function configToCss(config = {}, { target, className, modifier, prefix }) {
 }
 
 module.exports = plugin.withOptions(
-  ({ className = 'prose', target = 'modern' } = {}) => {
+  ({ className = 'prose', target = 'modern', useStyling = true } = {}) => {
     return function ({ addVariant, addComponents, theme, prefix }) {
       let modifiers = theme('typography')
 
@@ -115,6 +115,8 @@ module.exports = plugin.withOptions(
           target === 'legacy' ? selector : `& :is(${inWhere(selector, options)})`
         )
       }
+
+      if (!useStyling) return
 
       addComponents(
         Object.keys(modifiers).map((modifier) => ({
